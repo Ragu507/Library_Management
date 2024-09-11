@@ -28,5 +28,5 @@ urlpatterns = [
     path('bookinstance/<int:pk>/update/', BookInstanceUpdateView.as_view(), name='bookinstance-update'),
     path('bookinstance/<int:pk>/delete/', BookInstanceDeleteView.as_view(), name='bookinstance-delete'),
 
-    path('dash_board/', DashboardView.as_view(), name='dash_board'),
+    path('', DashboardView.as_view(), name='dash_board'),
 ]
