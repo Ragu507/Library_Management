@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Instance Form{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6">{{ view.title }}</h1>
+        <form method="post" action="{% if form.instance.pk %}{% url 'bookinstance-update' pk=form.instance.pk %}{% else %}{% url 'bookinstance-create' %}{% endif %}" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Book Field -->
+            <div class="mb-4">
+                <label for="{{ form.book.id_for_label }}" class="block text-gray-700 text-sm font-semibold mb-2">Book</label>
+                {{ form.book.errors }}
+                <select id="{{ form.book.id_for_label }}" name="book" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    {% for option in form.book.field.queryset %}
+                    <option value="{{ option.pk }}" {% if option.pk == form.book.value %}selected{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Unique ID Field -->
+            <div class="mb-4">
+                <label for="{{ form.unique_id.id_for_label }}" class="block text-gray-700 text-sm font-semibold mb-2">Unique ID</label>
+                {{ form.unique_id.errors }}
+                <input id="{{ form.unique_id.id_for_label }}" name="unique_id" type="text" value="{{ form.unique_id.value }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Unique ID">
+            </div>
+
+            <!-- Status Field -->
+            <div class="mb-4">
+                <label for="{{ form.status.id_for_label }}" class="block text-gray-700 text-sm font-semibold mb-2">Status</label>
+                {{ form.status.errors }}
+                <select id="{{ form.status.id_for_label }}" name="status" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    {% for choice in form.status.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.status.value %}selected{% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Due Back Field -->
+            <div class="mb-4">
+                <label for="{{ form.due_back.id_for_label }}" class="block text-gray-700 text-sm font-semibold mb-2">Due Back</label>
+                {{ form.due_back.errors }}
+                <input id="{{ form.due_back.id_for_label }}" name="due_back" type="date" value="{{ form.due_back.value }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    {% if form.instance.pk %}Update{% else %}Create{% endif %}
+                </button>
+                <a href="{% url 'bookinstance-list' %}" class="text-red-500 hover:text-red-700 font-bold py-2 px-4">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

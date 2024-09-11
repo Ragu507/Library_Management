@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Instances{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">Book Instances</h1>
+        <a href="{% url 'bookinstance-create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Add New Book Instance</a>
+        <table class="min-w-full bg-white border border-gray-200 mt-4">
+            <thead>
+                <tr>
+                    <th class="border-b px-4 py-2">Book</th>
+                    <th class="border-b px-4 py-2">Unique ID</th>
+                    <th class="border-b px-4 py-2">Status</th>
+                    <th class="border-b px-4 py-2">Due Back</th>
+                    <th class="border-b px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bookinstance in bookinstances %}
+                <tr>
+                    <td class="border-b px-4 py-2 text-center">{{ bookinstance.book.title }}</td>
+                    <td class="border-b px-4 py-2 text-center">{{ bookinstance.unique_id }}</td>
+                    <td class="border-b px-4 py-2 text-center">{{ bookinstance.get_status_display }}</td>
+                    <td class="border-b px-4 py-2 text-center">{{ bookinstance.due_back }}</td>
+                    <td class="border-b px-4 py-2 text-center">
+                        <a href="{% url 'bookinstance-detail' pk=bookinstance.pk %}" class="text-blue-500 hover:text-blue-700">View</a> |
+                        <a href="{% url 'bookinstance-update' pk=bookinstance.pk %}" class="text-yellow-500 hover:text-yellow-700">Edit</a> |
+                        <a href="{% url 'bookinstance-delete' pk=bookinstance.pk %}" class="text-red-500 hover:text-red-700">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

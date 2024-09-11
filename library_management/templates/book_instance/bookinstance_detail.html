@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Instance Detail{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">Book Instance Details</h1>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold">Book:</h2>
+            <p>{{ bookinstance.book.title }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold">Unique ID:</h2>
+            <p>{{ bookinstance.unique_id }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold">Status:</h2>
+            <p>{{ bookinstance.get_status_display }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold">Due Back:</h2>
+            <p>{{ bookinstance.due_back }}</p>
+        </div>
+        <a href="{% url 'bookinstance-update' pk=bookinstance.pk %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+        <a href="{% url 'bookinstance-list' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Back to List</a>
+    </div>
+{% endblock %}

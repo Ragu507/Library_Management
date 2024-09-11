@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4">Create Member</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- User Form Fields -->
+            <div class="mb-4">
+                <label for="{{ user_form.username.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                {{ user_form.username.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ user_form.username.id_for_label }}" 
+                       name="username" 
+                       type="text" 
+                       value="{{ user_form.username.value }}" 
+                       placeholder="Username">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ user_form.first_name.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+                {{ user_form.first_name.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ user_form.first_name.id_for_label }}" 
+                       name="first_name" 
+                       type="text" 
+                       value="{{ user_form.first_name.value }}" 
+                       placeholder="First Name">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ user_form.last_name.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
+                {{ user_form.last_name.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ user_form.last_name.id_for_label }}" 
+                       name="last_name" 
+                       type="text" 
+                       value="{{ user_form.last_name.value }}" 
+                       placeholder="Last Name">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ user_form.email.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                {{ user_form.email.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ user_form.email.id_for_label }}" 
+                       name="email" 
+                       type="email" 
+                       value="{{ user_form.email.value }}" 
+                       placeholder="Email">
+            </div>
+
+            <!-- Member Form Fields -->
+            <div class="mb-4 col-span-2">
+                <label for="{{ member_form.membership_type.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Membership Type</label>
+                {{ member_form.membership_type.errors }}
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="{{ member_form.membership_type.id_for_label }}" 
+                        name="membership_type">
+                    {% for choice in member_form.membership_type.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == member_form.membership_type.value %}selected{% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-4">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Create Member
+            </button>
+            <a href="{% url 'member-list' %}" class="text-red-500 hover:text-red-700 font-bold py-2 px-4">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

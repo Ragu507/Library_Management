@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4">Add New Loan</h1>
+
+    <form method="post" action="{% url 'loan-create' %}" class="space-y-4">
+        {% csrf_token %}
+        
+        <div class="mb-4">
+            <label for="{{ form.book_instance.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Book Instance</label>
+            {{ form.book_instance.errors }}
+            <select id="{{ form.book_instance.id_for_label }}" name="{{ form.book_instance.html_name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                {% for choice in form.book_instance.field.queryset %}
+                    <option value="{{ choice.pk }}" {% if choice.pk == form.book_instance.value %}selected{% endif %}>
+                        {{ choice }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.member.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Member</label>
+            {{ form.member.errors }}
+            <select id="{{ form.member.id_for_label }}" name="{{ form.member.html_name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                {% for choice in form.member.field.queryset %}
+                    <option value="{{ choice.pk }}" {% if choice.pk == form.member.value %}selected{% endif %}>
+                        {{ choice }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.due_date.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Due Date</label>
+            {{ form.due_date.errors }}
+            <input id="{{ form.due_date.id_for_label }}" name="{{ form.due_date.html_name }}" type="date" value="{{ form.due_date.value }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.return_date.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Return Date</label>
+            {{ form.return_date.errors }}
+            <input id="{{ form.return_date.id_for_label }}" name="{{ form.return_date.html_name }}" type="date" value="{{ form.return_date.value }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Save Loan
+            </button>
+            <a href="{% url 'loan-list' %}" class="text-red-500 hover:text-red-700 font-bold py-2 px-4">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

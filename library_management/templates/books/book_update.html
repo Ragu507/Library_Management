@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Include the Navbar -->
+    {% include 'nav_bar.html' %}
+
+    <div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">Update Book</h1>
+
+        <form method="post" action="{% url 'book-update' pk=book.pk %}" class="grid grid-cols-2 gap-4">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label for="{{ form.ISBN.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">ISBN</label>
+                {{ form.ISBN.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.ISBN.id_for_label }}" 
+                       name="ISBN" 
+                       type="text" 
+                       value="{{ form.ISBN.value }}" 
+                       placeholder="ISBN">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.title.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
+                {{ form.title.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.title.id_for_label }}" 
+                       name="title" 
+                       type="text" 
+                       value="{{ form.title.value }}" 
+                       placeholder="Title">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.author.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Author</label>
+                {{ form.author.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.author.id_for_label }}" 
+                       name="author" 
+                       type="text" 
+                       value="{{ form.author.value }}" 
+                       placeholder="Author">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.publisher.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Publisher</label>
+                {{ form.publisher.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.publisher.id_for_label }}" 
+                       name="publisher" 
+                       type="text" 
+                       value="{{ form.publisher.value }}" 
+                       placeholder="Publisher">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.genre.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Genre</label>
+                {{ form.genre.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.genre.id_for_label }}" 
+                       name="genre" 
+                       type="text" 
+                       value="{{ form.genre.value }}" 
+                       placeholder="Genre">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.language.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Language</label>
+                {{ form.language.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.language.id_for_label }}" 
+                       name="language" 
+                       type="text" 
+                       value="{{ form.language.value }}" 
+                       placeholder="Language">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.publication_date.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Publication Date</label>
+                {{ form.publication_date.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.publication_date.id_for_label }}" 
+                       name="publication_date" 
+                       type="date" 
+                       value="{{ form.publication_date.value }}">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.description.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                {{ form.description.errors }}
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                          id="{{ form.description.id_for_label }}" 
+                          name="description" 
+                          rows="4" 
+                          placeholder="Description">{{ form.description.value }}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.available_copies.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Available Copies</label>
+                {{ form.available_copies.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.available_copies.id_for_label }}" 
+                       name="available_copies" 
+                       type="number" 
+                       value="{{ form.available_copies.value }}" 
+                       placeholder="Available Copies">
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.total_copies.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">Total Copies</label>
+                {{ form.total_copies.errors }}
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="{{ form.total_copies.id_for_label }}" 
+                       name="total_copies" 
+                       type="number" 
+                       value="{{ form.total_copies.value }}" 
+                       placeholder="Total Copies">
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Save Changes
+                </button>
+                <a href="{% url 'book-list' %}" class="text-red-500 hover:text-red-700 font-bold py-2 px-4">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

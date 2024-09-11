@@ -1,0 +1,86 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Dashboard</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Include the Navbar -->
+    {% include 'nav_bar.html' %}
+
+    <!-- Main Dashboard Content -->
+    <div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+
+        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Total Books -->
+            <div class="bg-blue-600 text-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-2">Total Books</h2>
+                <p class="text-4xl font-bold">{{ total_books }}</p>
+            </div>
+
+            <!-- Total Book Instances -->
+            <div class="bg-green-600 text-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-2">Total Book Copies</h2>
+                <p class="text-4xl font-bold">{{ total_instances }}</p>
+            </div>
+
+            <!-- Available Instances -->
+            <div class="bg-yellow-600 text-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-2">Available Books</h2>
+                <p class="text-4xl font-bold">{{ available_instances }}</p>
+            </div>
+
+            <!-- On Loan Instances -->
+            <div class="bg-red-600 text-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-2">Books on Loan</h2>
+                <p class="text-4xl font-bold">{{ on_loan_instances }}</p>
+            </div>
+
+        </div>
+
+        <!-- Available Books Section -->
+        <div class="bg-gray-200 p-6 rounded-lg shadow-md mb-8 mt-4">
+            <h2 class="text-2xl font-bold mb-4">Available Books</h2>
+            <ul class="list-disc list-inside">
+                {% for instance in available_books %}
+                    <li>{{ instance.book.title }} (ID: {{ instance.unique_id }})</li>
+                {% empty %}
+                    <li>No available books.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Books on Loan Section -->
+        <div class="bg-gray-200 p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold mb-4">Books on Loan</h2>
+            <ul class="list-disc list-inside">
+                {% for instance in on_loan_books %}
+                    <li>{{ instance.book.title }} (ID: {{ instance.unique_id }}, Due Back: {{ instance.due_back|date:"Y-m-d" }})</li>
+                {% empty %}
+                    <li>No books on loan.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="mt-8 bg-gray-200 p-6">
+            <h2 class="text-2xl font-bold mb-4">Quick Actions</h2>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'bookinstance-create' %}" class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700">Add New Book Copy</a>
+                <a href="{% url 'book-list' %}" class="bg-green-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700">Manage Books</a>
+                <a href="{% url 'bookinstance-list' %}" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-yellow-700">Manage Book Copies</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

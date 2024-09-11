@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4">Are you sure you want to delete this loan?</h1>
+
+    <p class="mb-4"><strong>Book Title:</strong> {{ object.book_instance.book.title }}</p>
+    <p class="mb-4"><strong>Member:</strong> {{ object.member.user.username }}</p>
+    <p class="mb-4"><strong>Loan Date:</strong> {{ object.loan_date }}</p>
+    <p class="mb-4"><strong>Due Date:</strong> {{ object.due_date }}</p>
+    <p class="mb-4"><strong>Return Date:</strong> {% if object.return_date %} {{ object.return_date }} {% else %} Not returned {% endif %}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex items-center justify-between mt-4">
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>
+            <a href="{% url 'loan-list' %}" class="text-gray-500 hover:text-gray-700 font-bold py-2 px-4">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
